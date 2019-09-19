@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo " "
+echo "************ Problem 4.A"
+echo " "
+# code your solution to problem A of Part 4 below this line
+
+grep -i bridge bridge.txt | head -5
+
+echo " "
+echo "************ Problem 4.B"
+echo " "
+# code your solution to problem B of Part 4 below this line
+
+grep -v [pb] info.txt
+
+echo " "
+echo "************ Problem 4.C"
+echo " "
+# code your solution to problem C of Part 4 below this line
+
+diff -w info.txt info_updated.txt
+
+echo " "
+echo "************ Problem 4.D"
+echo " "
+# code your solution to problem D of Part 4 below this line
+
+sort name1.txt > name1-sorted.txt
+sort origNames.txt > origNames-sorted.txt
+diff -s name1-sorted.txt origNames-sorted.txt

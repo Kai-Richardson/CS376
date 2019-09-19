@@ -1,0 +1,2744 @@
+<html><head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="StyleSheet" href="csh_files/mksman.css">
+
+
+
+<title>csh -- C Shell, a shell (command interpreter) with C-like syntax</title>
+</head><body>
+<div id="nsr">
+<table width="100%" cellpadding="0" cellspacing="=&quot;0&quot;">
+<tbody><tr><td rowspan="2" valign="TOP" align="LEFT">
+<h1 class="header">
+<nobr>csh</nobr>
+<p class="header">C Shell, a shell (command interpreter) with C-like syntax&nbsp;</p>
+</h1></td>
+
+<td valign="TOP" align="RIGHT">
+<h2 class="header">Command</h2>
+</td>
+</tr>
+<tr>
+<td valign="TOP" align="RIGHT">
+<form name="form">
+<select name="site" size="1" onchange="formHandler()">
+<option selected="selected" value="../man1/csh.1.asp#SYNOPSIS">SYNOPSIS</option>
+<option value="../man1/csh.1.asp#DESCRIPTION">DESCRIPTION</option>
+<option value="../man1/csh.1.asp#Options">Options</option>
+<option value="../man1/csh.1.asp#Lexical_Structure">Lexical Structure</option>
+<option value="../man1/csh.1.asp#Commands">Commands</option>
+<option value="../man1/csh.1.asp#Jobs">Jobs</option>
+<option value="../man1/csh.1.asp#Status_Reporting">Status Reporting</option>
+<option value="../man1/csh.1.asp#File_Name_Completion">File Name Completion</option>
+<option value="../man1/csh.1.asp#Substitutions">Substitutions</option>
+<option value="../man1/csh.1.asp#History_Substitutions">History Substitutions</option>
+<option value="../man1/csh.1.asp#Quoting_Strings">Quoting Strings</option>
+<option value="../man1/csh.1.asp#Alias_Substitution">Alias Substitution</option>
+<option value="../man1/csh.1.asp#Variable_Substitution">Variable Substitution</option>
+<option value="../man1/csh.1.asp#Command_and_File_Name_Substitution">Command and File Name Substitution</option>
+<option value="../man1/csh.1.asp#Command_Substitution">Command Substitution</option>
+<option value="../man1/csh.1.asp#File_Name_Substitution">File Name Substitution</option>
+<option value="../man1/csh.1.asp#Input/Output">Input/Output</option>
+<option value="../man1/csh.1.asp#Expressions">Expressions</option>
+<option value="../man1/csh.1.asp#Control_Flow">Control Flow</option>
+<option value="../man1/csh.1.asp#Built-in_Commands">Built-in Commands</option>
+<option value="../man1/csh.1.asp#Pre-defined_Variables">Pre-defined Variables</option>
+<option value="../man1/csh.1.asp#Non-built-in_Command_Execution">Non-built-in Command Execution</option>
+<option value="../man1/csh.1.asp#Signal_Handling">Signal Handling</option>
+<option value="../man1/csh.1.asp#AUTHOR">AUTHOR</option>
+<option value="../man1/csh.1.asp#FILES">FILES</option>
+<option value="../man1/csh.1.asp#LIMITATIONS">LIMITATIONS</option>
+<option value="../man1/csh.1.asp#BUGS">BUGS</option>
+<option value="../man1/csh.1.asp#AVAILABILITY">AVAILABILITY</option>
+<option value="../man1/csh.1.asp#SEE_ALSO">SEE ALSO</option>
+</select>
+</form>
+</td>
+</tr>
+</tbody></table>
+<script language="JavaScript">
+<!-- Begin
+function formHandler(){
+var URL = document.form.site.options[document.form.site.selectedIndex].value;
+location.href=URL;
+// End -->
+}
+</script>
+</div>
+<div id="mainbody"><hr class="divider">
+<h2><a name="SYNOPSIS">SYNOPSIS</a></h2>
+<p class="synline">
+<b><tt>csh</tt></b> <b><tt><nobr>-l</nobr></tt></b>
+</p>
+<p class="synlast">
+<b><tt>csh</tt></b>
+[<b><tt><nobr>-befHinstvVxX</nobr></tt></b>]
+[<b><tt><nobr>-c</nobr></tt></b> [<i>script</i>]]
+[<i>arg</i> ...]
+</p>
+
+<hr class="divider">
+<h2><a name="DESCRIPTION">DESCRIPTION</a></h2>
+
+<p class="firstline">
+The C Shell (<b><tt>csh</tt></b>) is a command language interpreter
+incorporating a history mechanism (see <a href="#History_Substitutions"><i>History Substitutions</i></a>),
+job control facilities (see <a href="#Jobs"><i>Jobs</i></a>), interactive file name and
+user name completion (see <a href="#File_Name_Completion"><i>File Name Completion</i></a> ),
+and a C-like syntax.
+It is used both as an interactive login shell and a shell script
+command processor.
+</p>
+<h3><a name="Options">Options</a></h3>
+
+<p class="firstline">
+When the first argument (argument 0) to the C Shell begins with the 
+<tt>-</tt>, C Shell starts as a login shell.
+You can also specify a login shell by invoking <b><tt>csh</tt></b> with the
+<b><tt><nobr>-l</nobr></tt></b> option as the only argument.
+</p>
+<p>
+<b><tt>csh</tt></b> also accepts the following options:
+</p>
+<p class="firstline">
+</p><dl compact="yes">
+
+<a name=""></a><dt><b><tt><nobr>-b</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+forces a "break" from option processing, causing any further command line
+arguments to be treated as non-option arguments.
+These arguments are not interpreted as C Shell options.
+This may be used to pass options to a shell script without confusion
+or possible subterfuge.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-c</nobr></tt></b> [<i>script</i>]&nbsp;</dt>
+<dd>
+<p class="firstline">
+reads commands from the specified <i>script</i> file.
+Any remaining arguments are placed in <tt>argv</tt>.
+If you omit <i>script</i>, the first available argument from the
+<i>arg</i>... list is used as <i>script</i>.
+</p>
+<p>
+When the <b><tt><nobr>-c</nobr></tt></b> option is specified more than once, 
+all but the last one on the command line are ignored.
+Corresponding <i>script</i> arguments are also ignored.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-e</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+causes the C Shell to exit when any invoked command terminates abnormally
+or yields a non-zero exit status.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-f</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+starts the C Shell faster by neither searching for nor executing commands from
+the <tt>$HOME/cshrc.csh</tt> file in your home directory.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-H</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+starts the shell in hidden mode.
+</p>
+
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-i</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+makes C Shell interactive and prompts for its top-level input, even if it
+appears not to be a terminal.
+Without this option, C Shell is only interactive when its input and output
+are terminals.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-l</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+starts C Shell as a login shell.
+This is only applicable if <b><tt><nobr>-l</nobr></tt></b> is the only option specified.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-n</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+parses commands but does not execute them.
+This aids in checking the syntax of shell scripts.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-s</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+reads command input from the standard input.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-t</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+reads and executes a single line of input.
+You can use a backslash (<tt>\</tt>) to escape the newline at the end
+of this line and continue onto another line.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-v</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+sets the <tt>verbose</tt> variable, with the effect
+that command input is echoed after history substitution.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-V</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+sets the <tt>verbose</tt> variable before <tt>$HOME/cshrc.csh</tt>
+is executed.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-x</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+sets the <tt>echo</tt> variable, so that commands are echoed immediately
+before execution.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><nobr>-X</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+sets the <tt>echo</tt> variable before <tt>$HOME/cshrc.csh</tt>
+is executed.
+</p>
+</dd>
+
+</dl>
+<p></p>
+<p>
+After processing options if arguments remain but none of the
+<b><tt><nobr>-c</nobr></tt></b>, <b><tt><nobr>-i</nobr></tt></b>, <b><tt><nobr>-s</nobr></tt></b>, or 
+<b><tt><nobr>-t</nobr></tt></b> options were given, the first argument is taken as
+the name of a file of a command to be executed.
+The C Shell opens this file, and saves its name for possible resubstitution
+by <tt>$0</tt>.
+Remaining arguments are used to initialize the variable <tt>argv</tt>.
+</p>
+<p>
+<b><tt>csh</tt></b> begins by executing commands from the file
+<tt>$ROOTDIR/etc/cshrc.csh</tt> and, if it is a login shell,
+<tt>$ROOTDIR/etc/login.csh</tt>.
+It then executes commands from <tt>$HOME/cshrc.csh</tt> in the home
+directory of the invoker, and, if it is a login shell, the file 
+<tt>$HOME/login.csh</tt> in the same location.
+</p>
+<p class="firstline">
+</p><dl compact="no">
+<dt><b>Note:</b></dt>
+<dd>
+<p class="firstline">
+If <b><tt>csh</tt></b> does not find a startup file with the
+Windows-style name, it searches for a file with the equivalent UNIX-style
+name (for example <tt>.cshrc</tt> instead of <tt>cshrc.csh</tt>).
+</p>
+</dd>
+</dl>
+<p></p>
+<p>
+In the normal case, C Shell begins reading commands from the terminal,
+prompting with <tt>%</tt>.
+Processing of arguments and the use of the C Shell to process files
+containing command scripts are described later.
+</p>
+<p>
+The C Shell repeatedly performs the following actions:
+a line of command input is read and broken into <b><i>words</i></b>.
+This sequence of words is placed on the command history list and parsed.
+Finally each command in the current line is executed.
+</p>
+<p>
+When a login shell terminates it executes commands from the files
+<tt>$ROOTDIR/etc/logout.csh</tt> and <tt>$HOME/logout.csh</tt>.
+</p>
+
+<h3><a name="Lexical_Structure">Lexical Structure</a></h3>
+
+<p class="firstline">
+The C Shell splits input lines into words at blanks and tabs with the
+following exceptions.
+The following characters
+</p>
+<blockquote><pre>&amp;      |      ;      &lt;      &gt;      (      )
+</pre></blockquote>
+<p>
+form separate words.
+If doubled in <tt>&amp;&amp;</tt>, <tt>||</tt>, <tt>&lt;&lt;</tt>,
+or <tt>&gt;&gt;</tt>, these pairs form single words.
+To enter these characters as normal characters with no special meaning, 
+precede them with a backslash (<tt>\</tt>).
+A newline preceded by a backslash (<tt>\</tt>) is equivalent to a blank.
+</p>
+<p>
+Strings enclosed in matched pairs of back quotes (<tt>`</tt>), 
+single quotes (that is, apostrophes) (<tt>'</tt>), or double quotes
+(<tt>"</tt>) form parts of a word; metacharacters in these strings,
+including blanks and tabs, do not form separate words.
+These quotations have semantics to be described later.
+Within pairs of <tt>'</tt> or <tt>"</tt> characters, a newline
+preceded by a backslash (<tt>\</tt>) gives a true newline character.
+</p>
+<p>
+When the C Shell's input is not a terminal, the <tt>#</tt> character
+introduces a comment that continues to the end of the input line.
+It is prevented this special meaning when preceded by <tt>\</tt>
+and in quotations using <tt>'</tt>, <tt>`</tt>, and <tt>"</tt>.
+</p>
+
+<h3><a name="Commands">Commands</a></h3>
+
+<p class="firstline">
+A simple command is a sequence of words, the first of which specifies the
+command to be executed.
+A simple command or a sequence of simple commands separated by <tt>|</tt>
+characters forms a pipeline.
+The output of each command in a pipeline is connected to the input of the next.
+Sequences of pipelines may be separated by semicolons (<tt>;</tt>), and
+are executed sequentially.
+A sequence of pipelines may be executed without immediately
+waiting for it to terminate by following it with an <tt>&amp;</tt>.
+</p>
+<p>
+You may enclose any of the above in parentheses (<tt>( )</tt>)to form a
+simple command (that may be a component of a pipeline or similar construct).
+It is also possible to separate pipelines with <tt>||</tt> or 
+<tt>&amp;&amp;</tt> showing, as in the C language, that the second command
+is to be executed only if the first fails or succeeds, respectively
+(see <a href="#Expressions"><i>Expressions</i></a>).
+</p>
+
+<h3><a name="Jobs">Jobs</a></h3>
+
+<p class="firstline">
+The C Shell associates a <i>job</i> with each pipeline.
+It keeps a table of current jobs, printed by its <b><tt>jobs</tt></b>
+command, and assigns them small integer numbers.
+When a job is started asynchronously with <tt>&amp;</tt>', 
+<b><tt>csh</tt></b> displays a line that looks like:
+</p>
+<blockquote><pre>[1] 1234
+</pre></blockquote>
+<p>
+showing that the job that was started asynchronously was job number 1 and
+had one (top-level) process, whose process id was 1234.
+</p>
+<p>
+A job being run in the background stops if it tries to read from the terminal.
+</p>
+<p>
+There are several ways to refer to jobs in the C Shell.
+The <tt>%</tt> character introduces a job name.
+If you want to refer to job number 1, you can name it as <tt>%1</tt>.
+For example, if you have no jobs running in the background
+</p>
+<blockquote><pre>sleep 100 &amp;
+kill %1
+</pre></blockquote>
+<p>
+terminates the <a href="http://www.mkssoftware.com/docs/man1/sleep.1.asp"><b><tt>sleep</tt></b></a> command.
+Jobs can also be named by prefixes of the string typed in to start them,
+if these prefixes are unambiguous.
+For example,
+</p>
+<blockquote><pre>sleep 100 &amp;
+kill %sl
+</pre></blockquote>
+<p>
+terminates the <a href="http://www.mkssoftware.com/docs/man1/sleep.1.asp"><b><tt>sleep</tt></b></a> command, if there are no other jobs
+beginning with <tt>sl</tt>.
+It is also possible to say <tt>%?</tt><i>string</i> which specifies
+a job whose text contains <i>string</i>, if there is only one such job.
+</p>
+<p>
+The C Shell maintains a notion of the current and previous jobs.
+In output about jobs, the current job is marked with a <tt>+</tt>
+and the previous job with a <tt>-</tt>.
+The abbreviation <tt>%+</tt> refers to the current job and
+<tt>%-</tt> refers to the previous job.
+For close analogy with the syntax of the C Shell's <b><tt>history</tt></b>
+mechanism (described later in this reference page), <tt>%%</tt> is also
+a synonym for the current job.
+</p>
+
+<h3><a name="Status_Reporting">Status Reporting</a></h3>
+
+<p class="firstline">
+This C Shell learns as soon as possible whenever a process changes state.
+It informs you whenever a job becomes blocked so that no further progress
+is possible. This notification only occurs when the shell next displays
+its prompt.  This is done so that it does not otherwise disturb your work.
+</p>
+
+<h3><a name="File_Name_Completion">File Name Completion</a></h3>
+
+<p class="firstline">
+When the file name completion feature is enabled by setting the
+<tt>filec</tt> shell variable (see the description of the C Shell's 
+<b><tt>set</tt></b> command later in this reference page),
+<b><tt>csh</tt></b> interactively completes file names and user names
+from unique prefixes, when they are input from the terminal followed by
+the escape character (the ESC key, or 
+CTRL-[).
+For example, if the current directory looks like
+</p>
+<blockquote><pre>DSC.OLD    bin         cmd         lib         xmpl.c
+DSC.NEW    chaosnet    cmtest      mail        xmpl.o
+bench      class       dev         mbox        xmpl.out
+</pre></blockquote>
+<p>
+and the input is
+</p>
+<blockquote><pre>vi ch&lt;escape&gt;
+</pre></blockquote>
+<p>
+<b><tt>csh</tt></b> completes the prefix <tt>ch</tt> to the only
+matching file name <tt>chaosnet</tt>, changing the input line to
+</p>
+<blockquote><pre>vi chaosnet
+</pre></blockquote>
+<p>
+However, given
+</p>
+<blockquote><pre>vi D&lt;escape&gt;
+</pre></blockquote>
+<p>
+<b><tt>csh</tt></b> only expands the input to
+</p>
+<blockquote><pre>DSC.
+</pre></blockquote>
+<p>
+and sounds the terminal bell to indicate that the expansion is incomplete,
+since there are two file names matching the prefix <tt>D</tt>.
+</p>
+<p>
+If a partial file name is followed by the end-of-file character
+(usually 
+CTRL-Z then, instead of completing the name,
+<b><tt>csh</tt></b> lists all file names matching the prefix.
+For example, the input
+</p>
+<blockquote><pre>vi D&lt;^Z&gt;
+</pre></blockquote>
+<p>
+lists all files beginning with <tt>D</tt>:
+</p>
+<blockquote><pre>DSC.NEW      DSC.OLD
+</pre></blockquote>
+<p>
+while the input line remains unchanged.
+</p>
+<p>
+The same system of escape and end-of-file can also be used to expand partial
+user names, if the word to be completed (or listed) begins with the character
+<tt>~</tt>.
+For example, typing
+</p>
+<blockquote><pre>cd ~admin&lt;escape&gt;
+</pre></blockquote>
+<p>
+may produce the expansion
+</p>
+<blockquote><pre>cd ~administrator
+</pre></blockquote>
+<p>
+The use of the terminal bell to signal errors or multiple matches
+can be inhibited by setting the variable
+<tt>nobeep</tt>.
+</p>
+<p>
+Normally, all files in the particular directory are candidates for name
+completion.
+Files with certain suffixes can be excluded from consideration by setting
+the <tt>fignore</tt> variable to the list of suffixes to be ignored.
+Thus, if <tt>fignore</tt> is set by the command
+</p>
+<blockquote><pre>set fignore = (.o .out)
+</pre></blockquote>
+<p>
+then typing
+</p>
+<blockquote><pre>vi x&lt;escape&gt;
+</pre></blockquote>
+<p>
+results in completion to
+</p>
+<blockquote><pre>vi xmpl.c
+</pre></blockquote>
+<p>
+ignoring the files <tt>xmpl.o</tt> and <tt>xmpl.out</tt>.
+However, if the only completion possible requires not ignoring these suffixes,
+then they are not ignored.
+In addition, <tt>fignore</tt> does not affect the listing of file names
+by 
+CTRL-Z.
+All files are listed regardless of their suffixes.
+If the <tt>DUALCASE</tt> variable is set, case is considered when completing
+file names; otherwise, case is ignored.
+</p>
+
+<h3><a name="Substitutions">Substitutions</a></h3>
+
+<p class="firstline">
+The following sections describe the various transformations the C Shell
+performs on the input in the order they occur in.
+</p>
+
+<h3><a name="History_Substitutions">History Substitutions</a></h3>
+
+<p class="firstline">
+History substitutions place words from previous command input as portions
+of new commands, making it easy to repeat commands, repeat arguments
+of a previous command in the current command, or fix spelling mistakes
+in the previous command with little typing and a high degree of confidence.
+History substitutions begin with the character <tt>!</tt> and may begin
+anywhere in the input stream (as long as they are not nested).
+This <tt>!</tt> may be preceded by a backslash (<tt>\</tt>)
+to prevent its special meaning; for convenience, <tt>!</tt> is passed
+unchanged when it is followed by a blank, tab, newline, <tt>=</tt>, or 
+<tt>(</tt>.
+(History substitutions also occur when an input line begins with
+<tt>^</tt>.
+This special abbreviation is described later in this reference page.)
+Any input line that contains history substitution is echoed on the terminal
+before it is executed as it could have been typed without history substitution.
+</p>
+<p>
+Commands input from the terminal that consist of one or more words are saved
+on the history list.
+The history substitutions reintroduce sequences of words from these saved
+commands into the input stream.
+The size of the history list is controlled by the <tt>history</tt> variable;
+the previous command is always retained, regardless of the value of the
+<tt>history</tt> variable.
+Commands are numbered sequentially from 1.
+</p>
+<p>
+For example, consider the following output from the C Shell's 
+<b><tt>history</tt></b> command:
+</p>
+<blockquote><pre>\09  mapimail michael
+10  vi write.c
+11  cat oldwrite.c
+12  diff *write.c
+</pre></blockquote>
+<p>
+The commands are shown with their event numbers.
+It is not usually necessary to use event numbers, but the current event
+number can be made part of the prompt by placing an <tt>!</tt> in
+the prompt string.
+</p>
+<p>
+With the current event 13, you can refer to previous events by event
+number <tt>!11</tt>, relatively as in <tt>!-2</tt> (referring to the
+same event), by a prefix of a command word as in <tt>!d</tt> for event 12
+or <tt>!mapi</tt> for event 9, or by a string contained in a word in the
+command as in <tt>!?mic?</tt> also referring to event 9.
+These forms, without further change, simply reintroduce the words of the
+specified events, each separated by a single blank.
+As a special case, <tt>!!</tt> refers to the previous command;
+thus <tt>!!</tt> alone is a <i>redo</i>.
+</p>
+<p>
+To select words from an event we can follow the event specification by
+a <tt>:</tt> and a designator for the desired words.
+The words of an input line are numbered from 0, the first (usually command)
+word being 0, the second word (first argument) being 1, and so on.
+The basic word designators are:
+</p>
+<blockquote><pre>0	<font face="Arial">the first (command) word</font>
+<i>n</i>	<font face="Arial">the <i>n</i>th argument</font>
+^	<font face="Arial">the first argument, that is, 1</font>
+$	<font face="Arial">the last argument</font>
+%	<font face="Arial">the word matched by an immediately preceding <tt>?</tt><i>s</i><tt>?</tt> search</font>
+<i>x</i>-<i>y</i>	<font face="Arial">range of words</font>
+-<i>y</i>	<font face="Arial">abbreviation for <tt>0-</tt><i>y</i></font>
+*	<font face="Arial">abbreviation for <tt>^-$</tt>, or nothing if only 1 word in event</font>
+<i>x</i>*	<font face="Arial">abbreviation for <i>x</i><tt>-$</tt></font>
+<i>x</i><tt>-</tt>	<font face="Arial">like <i>x</i><tt>*</tt> but omitting word <tt>$</tt></font>
+</pre></blockquote>
+<p>
+The <tt>:</tt> separating the event specification from the word
+designator can be omitted if the argument selector begins with a
+<tt>^</tt>, <tt>$</tt>, <tt>*</tt>, <tt>-</tt>, or
+<tt>%</tt>.
+After the optional word designator can be placed a sequence of modifiers,
+each preceded by a <tt>:</tt>.
+The following modifiers are defined:
+</p>
+<blockquote><pre>h	<font face="Arial">removes a trailing path name component, leaving the head.</font>
+r	<font face="Arial">removes a trailing <tt>.xxx</tt> component, leaving the root name.</font>
+e	<font face="Arial">removes all but the extension <tt>.xxx</tt> part.</font>
+s/<i>l</i>/<i>r</i>/	<font face="Arial">substitutes <i>l</i> for <i>r</i></font>
+t	<font face="Arial">removes all leading path name components, leaving the tail.</font>
+&amp;	<font face="Arial">repeats the previous substitution.</font>
+g	<font face="Arial">applies the change once on each word, prefixing the above, for example, <tt>g&amp;</tt>.</font>
+a	<font face="Arial">applies the change as many times as possible on a single word, prefixing the above</font>
+	<font face="Arial">(can be used together with <tt>g</tt> to apply a substitution globally).</font>
+p	<font face="Arial">prints the new command line but does not execute it.</font>
+q	<font face="Arial">quotes the substituted words, preventing further substitutions.</font>
+x	<font face="Arial">is like <tt>q</tt>, but breaks into words at blanks, tabs and newlines.</font>
+</pre></blockquote>
+<p>
+Unless preceded by the <tt>g</tt> modifier, the change is applied only
+to the first modifiable word.
+With substitutions, it is an error for no word to be applicable.
+</p>
+<p>
+The left hand side of substitutions are not regular expressions in the sense
+of the editors, but instead strings.
+Any character may be used as the delimiter in place of the slash 
+(<tt>/</tt>); a backslash (<tt>\</tt>) quotes the delimiter in
+the <i>l</i> and <i>r</i> strings.
+The character <tt>&amp;</tt> in the right hand side is replaced by
+the text from the left. A <tt>\</tt> also quotes <tt>&amp;</tt>.
+A null left side (<tt>//</tt>) uses the previous string either from an
+<i>l</i> or from a contextual scan string <i>s</i> in
+<tt>!?</tt><i>s</i><tt>\?</tt>.
+The trailing delimiter in the substitution may be omitted if a newline
+follows immediately as may the trailing <tt>?</tt> in a contextual scan.
+</p>
+<p>
+A history reference may be given without an event specification, for example,
+<tt>!$</tt>.
+Here, the reference is to the previous command unless a previous
+history reference occurred on the same line in which case this form repeats
+the previous reference.
+Thus <tt>!?foo?^ !$</tt> gives the first and last arguments
+from the command matching <tt>?foo?</tt>.
+</p>
+<p>
+A special abbreviation of a history reference occurs when the first
+non-blank character of an input line is a <tt>^</tt>.
+This is equivalent to <tt>!:s^</tt> providing a convenient shorthand for
+substitutions on the text of the previous line.
+Thus <tt>^lb^lib</tt> fixes the spelling of <tt>lib</tt>
+in the previous command.
+Finally, a history substitution may be surrounded with <tt>{</tt>
+and <tt>}</tt> if necessary to insulate it from the characters that follow.
+Thus, after <tt>ls -ld ~paul</tt>, you might do <tt>!{l}a</tt> to do
+<tt>ls -ld ~paula</tt>, while <tt>!la</tt> would look for a command
+starting with <tt>la</tt>.
+</p>
+<p>
+</p>
+
+<h3><a name="Quoting_Strings">Quoting Strings</a></h3>
+
+<p class="firstline">
+The quotation of strings by <tt>'</tt> and <tt>"</tt> can be used
+to prevent all or some of the remaining substitutions.
+Strings enclosed in <tt>'</tt> are prevented any further interpretation.
+Strings enclosed in <tt>"</tt> may be expanded as described below.
+</p>
+<p>
+In both cases the resulting text becomes (all or part of) a single word;
+only in one special case (see <a href="#Command_Substitution"><i>Command Substitution</i></a>)
+does a <tt>"</tt> quoted string yield parts of more than one word;
+<tt>'</tt> quoted strings never do.
+</p>
+
+<h3><a name="Alias_Substitution">Alias Substitution</a></h3>
+
+<p class="firstline">
+The C Shell maintains a list of aliases that can be established, displayed
+and modified by the C Shell's <b><tt>alias</tt></b> and 
+<b><tt>unalias</tt></b> commands.
+After a command line is scanned, it is parsed into distinct commands and the
+first word of each command, left-to-right, is checked to see if it has an alias.
+If it does, then the text that is the alias for that command is reread with
+the history mechanism available as though that command were the previous
+input line.
+The resulting words replace the command and argument list.
+If no reference is made to the history list, then the argument list is
+left unchanged.
+</p>
+<p>
+Thus if the alias for <tt>ls</tt> is <tt>ls -l</tt> the command
+</p>
+<blockquote><pre>ls /winnt
+</pre></blockquote>
+<p>
+maps to
+</p>
+<blockquote><pre>ls -l /winnt
+</pre></blockquote>
+<p>
+the argument list here being undisturbed.
+</p>
+<p>
+If an alias is found, the word transformation of the input text is performed
+and the aliasing process begins again on the reformed input line.
+Looping is prevented if the first word of the new text is the same as the old
+by flagging it to prevent further aliasing.
+Other loops are detected and cause an error.
+</p>
+<p>
+Note that the mechanism allows aliases to introduce parser metasyntax.
+For example,
+</p>
+<blockquote><pre>alias ms 'man  \!* | manstrip'
+</pre></blockquote>
+<p>
+creates a command that displays a version of the specified reference pages
+stripped of backspace characters and ANSI color escape sequences.
+</p>
+
+<h3><a name="Variable_Substitution">Variable Substitution</a></h3>
+
+<p class="firstline">
+The C Shell maintains a set of variables, each of which has as value a list
+of zero or more words.
+Some of these variables are set by the shell or referred to by it.
+For instance, the <tt>argv</tt> variable is an image of the C Shell's
+argument list, and words of this variable's value are referred to in
+special ways.
+</p>
+<p>
+The values of variables may be displayed and changed by using the C Shell's
+<b><tt>set</tt></b> and <b><tt>unset</tt></b> commands.
+Of the variables referred to by the C Shell, a number are toggles; that is, 
+the shell does not care what their value is, only whether they are set or not.
+For instance, the <tt>verbose</tt> variable is a toggle that causes
+command input to be echoed.
+The setting of this variable results from the <b><tt><nobr>-v</nobr></tt></b>
+command line option.
+</p>
+<p>
+Other operations treat variables numerically.
+The <b><tt>@</tt></b> command permits numeric calculations to be performed
+and the result assigned to a variable.
+Variable values are, however, always represented as (zero or more) strings.
+For the purposes of numeric operations, the null string is considered to be
+zero, and the second and additional words of multiword values are ignored.
+</p>
+<p>
+After the input line is aliased and parsed, and before each command
+is executed, variable substitution is performed keyed by <tt>$</tt>
+characters.
+This expansion can be prevented by preceding the <tt>$</tt> with 
+a <tt>\</tt> except within double quotes (<tt>"</tt>) where it
+always occurs, and within single quotes (<tt>'</tt>) where it never occurs.
+Strings quoted by <tt>`</tt> are interpreted later (see 
+<a href="#Command_Substitution"><i>Command Substitution</i></a>) so <tt>$</tt> substitution does not
+occur there until later, if at all.
+<tt>$</tt> is passed unchanged if followed by a blank, tab, or 
+end-of-line.
+</p>
+<p>
+Input/output redirections are recognized before variable expansion,
+and are variable expanded separately.
+Otherwise, the command name and entire argument list are expanded together.
+It is thus possible for the first (command) word (to this point) to generate
+more than one word, the first of which becomes the command name,
+and the rest of which become arguments.
+</p>
+<p>
+Unless enclosed in double quotes (<tt>"</tt>) or given the <tt>:q</tt>
+modifier, the results of variable substitution may eventually be command
+and file name substituted.
+Within double quotes (<tt>"</tt>), a variable whose value consists of
+multiple words expands to (a portion of) a single word, with the words of
+the variables value separated by blanks.
+When the <tt>:q</tt> modifier is applied to a substitution, the variable
+expands to multiple words with each word separated by a blank and quoted to
+prevent later command or file name substitution.
+</p>
+<p>
+The following metasequences are provided for introducing variable values into
+the C Shell input.
+Except as noted, it is an error to reference a variable that is not set.
+</p>
+<p class="firstline">
+</p><dl compact="yes">
+
+<a name=""></a><dt><tt>$</tt><i>name</i>&nbsp;</dt>
+<a name=""></a><dt><tt>${</tt><i>name</i><tt>}</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Are replaced by the words of the value of variable <i>name</i>
+each separated by a blank.
+Braces insulate <i>name</i> from following characters that would
+otherwise be part of it.
+Shell variables have names consisting of up to 20 letters and digits
+starting with a letter. The underscore character is considered a letter.
+When <i>name</i> is not a shell variable, but is set in the
+environment, that value is returned (but <tt>:</tt> modifiers and the
+other forms given later are not available here).
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$</tt><i>name</i> <i>selector</i>&nbsp;</dt>
+<a name=""></a><dt><tt>${</tt><i>name</i> <tt>[</tt><i>selector</i><tt>]}</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+May be used to select only some of the words from the value of 
+<i>name</i>.
+The <i>selector</i> is subjected to <tt>$</tt> substitution
+and may consist of a single number or two numbers separated by a
+<tt>-</tt>.
+The first word of a variables value is numbered 1.
+If the first number of a range is omitted it defaults to 1.
+If the last number of a range is omitted it defaults to 
+<tt>$#</tt><i>name</i>.
+The selector <tt>*</tt> selects all words.
+It is not an error for a range to be empty if the second argument is omitted
+or in range.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$#</tt><i>name</i>&nbsp;</dt>
+<a name=""></a><dt><tt>${#</tt><i>name</i><tt>}</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Gives the number of words in the variable.
+This is useful for later use in a 
+<tt>$argv[</tt><i>selector</i><tt>]</tt>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$0</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Substitutes the name of the file the command input is being read from.
+An error occurs if the name is not known.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$</tt><i>number</i>&nbsp;</dt>
+<a name=""></a><dt><tt>${</tt><i>number</i><tt>}</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is equivalent to <tt>$argv[</tt><i>number</i><tt>]</tt>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$*</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is equivalent to <tt>$argv[*]</tt>.
+The modifiers <tt>:e</tt>, <tt>:h</tt>, <tt>:t</tt>,
+<tt>:r</tt>, <tt>:q</tt>, and <tt>:x</tt> may be applied to the
+substitutions above as may <tt>:gh</tt>, <tt>:gt</tt>, and
+<tt>:gr</tt>.
+When braces (<tt>{ }</tt>) appear in the command form, the modifiers
+must appear within the braces.
+The current implementation of <b><tt>csh</tt></b> allows only one
+<tt>:</tt> modifier on each <tt>$</tt> expansion.
+</p>
+</dd>
+
+</dl>
+<p></p>
+<p>
+The following substitutions may not be modified with <tt>:</tt> modifiers.
+</p>
+<p class="firstline">
+</p><dl compact="yes">
+
+<a name=""></a><dt><tt>$?</tt><i>name</i>&nbsp;</dt>
+
+
+<a name=""></a><dt><tt>${?</tt><i>name</i><tt>}</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Substitutes the string <tt>1</tt> if the variable <i>name</i>
+is set,
+<tt>0</tt> if it is not.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$?0</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Substitutes <tt>1</tt> if the current input file name is known,
+<tt>0</tt> if it is not.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$$</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Substitutes the (decimal) process number of the (parent) shell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$!</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Substitutes the (decimal) process number of the last background process
+started by this shell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$&lt;</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Substitutes a line from the standard input, with no further interpretation.
+It can be used to read from the keyboard in a shell script.
+</p>
+</dd>
+
+</dl>
+<p></p>
+
+<h3><a name="Command_and_File_Name_Substitution">Command and File Name Substitution</a></h3>
+
+<p class="firstline">
+The remaining substitutions, command and file name substitution,
+are applied selectively to the arguments of built-in commands.
+In this case, selectively means that portions of expressions that are
+not evaluated are not subjected to these expansions.
+For commands that are not internal to the C Shell, the command
+name is substituted separately from the argument list.
+This occurs very late, after input-output redirection is performed, and
+in a child of the main shell.
+</p>
+
+<h3><a name="Command_Substitution">Command Substitution</a></h3>
+
+<p class="firstline">
+Command substitution is shown by a command enclosed in <tt>`</tt>.
+The output from such a command is normally broken into separate words
+at blanks, tabs and newlines, with null words being discarded;
+this text then replaces the original string.
+Within double quotes (<tt>"</tt>), only newlines force new words;
+blanks and tabs are preserved.
+</p>
+<p>
+In any case, the single final newline does not force a new word.
+Note that it is thus possible for a command substitution to yield
+only part of a word, even if the command outputs a complete line.
+</p>
+
+<h3><a name="File_Name_Substitution">File Name Substitution</a></h3>
+
+<p class="firstline">
+When a word contains any of the characters <tt>*</tt>, <tt>?</tt>,
+<tt>[</tt>, or <tt>{</tt> or begins with the character <tt>~</tt>,
+that word is a candidate for file name substitution, also known as
+<b><i>globbing</i></b>.
+This word is then regarded as a pattern, and replaced with an alphabetically
+sorted list of file names that match the pattern.
+In a list of words specifying file name substitution it is an error for
+no pattern to match an existing file name, but it is not required
+for each pattern to match.
+Only the metacharacters <tt>*</tt>, <tt>?</tt>, and <tt>[</tt>
+imply pattern matching, the characters <tt>~</tt> and <tt>{</tt>
+being more akin to abbreviations.
+</p>
+<p>
+In matching file names, the character <tt>.</tt> at the beginning of a
+file name or immediately following a <tt>/</tt>, as well as the character
+<tt>/</tt> must be matched explicitly.
+The character <tt>*</tt> matches any string of characters, including
+the null string.
+The character <tt>?</tt> matches any single character.
+The sequence <tt>...</tt> matches any one of the characters enclosed.
+Within <tt>...</tt>, a pair of characters separated by <tt>-</tt>
+matches any character lexically between the two (inclusive).
+</p>
+<p>
+The character <tt>~</tt> at the beginning of a file name refers to home
+directories.
+Standing alone, that is, <tt>~</tt> it expands to the invoker's home
+directory as reflected in the value of the variable <tt>home</tt>.
+When followed by a name consisting of letters, digits and <tt>-</tt>
+characters, the shell searches for a user with that name and substitutes their
+home directory; thus <tt>~ken</tt> might expand to <tt>c:/users/ken</tt>
+and <tt>~ken/chmach</tt> to <tt>c:/users/ken/chmach</tt>.
+If the character <tt>~</tt> is followed by a character other than a
+letter or <tt>/</tt> or does not appear at the beginning of a word,
+it is left undisturbed.
+</p>
+<p>
+The metanotation <tt>a{b,c,d}e</tt> is a shorthand for
+<tt>abe ace ade</tt>.
+Left to right order is preserved, with results of matches being sorted
+separately at a low level to preserve this order.
+This construct may be nested.
+Thus, <tt>~source/s1/{oldls,ls}.c</tt> expands to
+<tt>/usr/source/s1/oldls.c /usr/source/s1/ls.c</tt> without chance of
+error if the home directory for <tt>source</tt> is <tt>/usr/source</tt>.
+Similarly <tt>../{memo,*box}</tt> might expand to
+<tt>../memo ../box ../mbox</tt>.
+(Note that <tt>memo</tt> was not sorted with the results of the match to
+<tt>*box</tt>.)
+As a special case <tt>{</tt>, <tt>}</tt>, and <tt>{}</tt> are
+passed undisturbed.
+</p>
+<p class="firstline">
+</p><dl compact="no">
+<dt><b>Note:</b></dt>
+<dd>
+<p class="firstline">
+When calling other commands from <b><tt>csh</tt></b>, be careful to
+escape any wildcards in the command line.
+For example, you must type the following in <b><tt>csh</tt></b>:
+</p>
+<blockquote><pre>find / -name \*.bat
+</pre></blockquote>
+</dd>
+</dl>
+<p></p>
+
+<h3><a name="Input/Output">Input/Output</a></h3>
+
+<p class="firstline">
+The standard input and the standard output of a command may be redirected
+with the following syntax:
+</p>
+<p class="firstline">
+</p><dl compact="yes">
+
+<a name=""></a><dt><tt>&lt;</tt> <i>filename</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Opens file <i>filename</i> (after <i>filename</i> is variable,
+command and file name expanded) as the standard input.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>&lt;&lt;</tt> <i>word</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Reads the C Shell input up to a line that is identical to <i>word</i>.
+<i>word</i> is not subjected to variable, file name or command
+substitution, and each input line is compared to <i>word</i>
+before any substitutions are done on the input line.
+Unless a quoting <tt>\</tt>, <tt>"</tt>, <tt>'</tt>, 
+or <tt>`</tt> appears in <i>word</i>, variable and command
+substitution is performed on the intervening lines, allowing <tt>\</tt>
+to quote <tt>$</tt>, <tt>\</tt> and <tt>`</tt>.
+Commands that are substituted have all blanks, tabs, and newlines
+preserved, except for the final newline which is dropped.
+The resultant text is placed in an anonymous temporary file that
+is given to the command as its standard input.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>&gt;</tt> <i>filename</i>&nbsp;</dt>
+<a name=""></a><dt><tt>&gt;!</tt> <i>filename</i>&nbsp;</dt>
+<a name=""></a><dt><tt>&gt;&amp;</tt> <i>filename</i>&nbsp;</dt>
+<a name=""></a><dt><tt>&gt;&amp;!</tt> <i>filename</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Uses <i>filename</i> as the standard output.
+If the file does not exist then it is created;
+if the file exists, it is truncated; its previous contents are lost.
+</p>
+<p>
+If the variable <tt>noclobber</tt> is set, then the file must not exist or
+be a character special file (for example, a terminal or <tt>nul</tt>)
+or an error results.
+This helps prevent accidental destruction of files.
+Here, the <tt>!</tt> forms can be used to suppress this check.
+</p>
+</dd>
+
+</dl>
+<p></p>
+<p>
+The forms involving <tt>&amp;</tt> route the standard error output into
+the specified file as well as the standard output.
+<i>filename</i> is expanded in the same way as <tt>&lt;</tt>
+input file names are.
+</p>
+<p class="firstline">
+</p><dl compact="yes">
+
+<a name=""></a><dt><tt>&gt;&gt;</tt> <i>filename</i>&nbsp;</dt>
+<a name=""></a><dt><tt>&gt;&gt;&amp;</tt> <i>filename</i>&nbsp;</dt>
+<a name=""></a><dt><tt>&gt;&gt;!</tt> <i>filename</i>&nbsp;</dt>
+<a name=""></a><dt><tt>&gt;&gt;&amp;!</tt> <i>filename</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Uses <i>filename</i> as the standard output; like <tt>&gt;</tt>
+but places output at the end of the file.
+If the variable <tt>noclobber</tt> is set, then it is an error for the
+file not to exist unless one of the <tt>!</tt> forms is given.
+Otherwise, it is similar to <tt>&gt;</tt>.
+</p>
+</dd>
+
+</dl>
+<p></p>
+<p>
+A command receives the environment where the C Shell was invoked as modified
+by the input-output parameters and the presence of the command in a pipeline.
+Thus, unlike some previous shells, commands run from a file of C Shell
+commands have no access to the text of the commands by default;
+instead they receive the original standard input of the shell.
+The <tt>&lt;&lt;</tt> mechanism should be used to present inline data.
+This permits shell command scripts to function as components of pipelines
+and allows the shell to block read its input.
+Note that the default standard input for a command run detached is
+not modified to be the empty file <tt>nul</tt>;
+instead the standard input remains as the original standard input of the shell.
+If this is a terminal and if the process attempts to read from the terminal,
+then the process blocks and the user is notified (see <a href="#Jobs"><i>Jobs</i></a>
+earlier in this reference page).
+</p>
+<p>
+The standard error output may be directed through a pipe with the standard
+output.
+Simply use the form <tt>|&amp; </tt>instead of just <tt>|</tt>.
+</p>
+
+<h3><a name="Expressions">Expressions</a></h3>
+
+<p class="firstline">
+Several of the built-in commands (to be described later) take expressions,
+where the operators are similar to those of C, with the same precedence.
+These expressions appear in the <b><tt>@</tt></b>, <b><tt>exit</tt></b>,
+<b><tt>if</tt></b>, and <b><tt>while</tt></b> commands.
+The following operators are available:
+</p>
+<blockquote><pre>||   &amp;&amp;  |    ^    &amp;    ==   !=   =~   !~   &lt;=   &gt;=
+&lt;    &gt;   &lt;&lt;   &gt;&gt;   +    -    *    /    %    !    ~    (    )
+</pre></blockquote>
+<p>
+Here the precedence increases to the right.
+Each of the following lines lists operators that have the same level
+of precedence:
+</p>
+<blockquote><pre>==    !=   =~   !~
+&lt;=    &gt;=   &lt;    &gt;
+&lt;&lt;    &gt;&gt;
++     -
+*     /    %
+</pre></blockquote>
+<p>
+The <tt>==</tt>, <tt>!=</tt>, <tt>=~</tt>, and <tt>!~</tt>
+operators compare their arguments as strings; all others operate on numbers.
+The operators <tt>=~</tt> and <tt>!~</tt> operators are like
+<tt>!=</tt> and <tt>==</tt> except the right hand side is a
+<b><i>pattern</i></b> (containing, for example, <tt>*</tt>s,
+<tt>?</tt>s and instances of <tt>[...]</tt>) that the left hand
+operand is matched against. This reduces the need for use of the
+<b><tt>switch</tt></b> statement in shell scripts when all that is really
+needed is pattern matching.
+</p>
+<p>
+Strings that begin with <tt>0</tt> are considered octal numbers.
+Null or missing arguments are considered <tt>0</tt>.
+The result of all expressions are strings, which represent decimal numbers.
+It is important to note that no two components of an expression can appear
+in the same word; except when adjacent to components of expressions that
+are syntactically significant to the parser (<tt>&amp;</tt>, 
+<tt>|</tt>, <tt>&lt;</tt>, <tt>&gt;</tt>, <tt>(</tt>, and
+<tt>)</tt>), they should be surrounded by spaces.
+</p>
+<p>
+Also available in expressions as primitive operands are command executions
+enclosed in <tt>{</tt> and <tt>}</tt> and file enquiries of the form
+<tt>l</tt> <i>name</i> where <tt>l</tt> is one of:
+</p>
+<blockquote><pre>r	<font face="Arial">read access</font>
+w	<font face="Arial">write access</font>
+x	<font face="Arial">execute access</font>
+e	<font face="Arial">existence</font>
+o	<font face="Arial">ownership</font>
+z	<font face="Arial">zero size</font>
+f	<font face="Arial">plain file</font>
+d	<font face="Arial">directory</font>
+</pre></blockquote>
+<p>
+The specified name is command and file name expanded and then tested to see
+if it has the specified relationship to the real user.
+If the file does not exist or is inaccessible then all enquiries return
+false, that is, <tt>0</tt>.
+Command executions succeed, returning true, that is, <tt>1</tt>, if the
+command exits with status 0, otherwise they fail, returning false, that is,
+<tt>0</tt>.
+If more detailed status information is required then the command should be
+executed outside an expression and the variable <tt>status</tt> examined.
+</p>
+
+<h3><a name="Control_Flow">Control Flow</a></h3>
+
+<p class="firstline">
+The C Shell contains several commands that can be used to regulate the
+flow of control in command files (shell scripts) and (in limited but useful
+ways) from terminal input.
+These commands all operate by forcing the shell to reread or skip in its
+input and, because of the implementation, restrict the placement of some
+of the commands.
+</p>
+<p>
+The <b><tt>foreach</tt></b>, <b><tt>switch</tt></b>, and 
+<b><tt>while</tt></b> statements, as well as the 
+<b><tt>if</tt></b>-<b><tt>then</tt></b>-<b><tt>else</tt></b> form of the
+<b><tt>if</tt></b> statement require that the major keywords appear in a
+single simple command on an input line as shown later.
+</p>
+<p>
+If the C Shell's input is not seekable, the shell buffers up input whenever
+a loop is being read and performs seeks in this internal buffer to accomplish
+the rereading implied by the loop.
+(To the extent that this allows, a backward <b><tt>goto</tt></b> succeeds on
+non-seekable inputs.)
+</p>
+
+<h3><a name="Built-in_Commands">Built-in Commands</a></h3>
+
+<p class="firstline">
+Built-in commands are executed within the C Shell.
+If a built-in command occurs as any component of a pipeline except the last,
+it is executed in a subshell.
+</p>
+<p class="firstline">
+</p><dl compact="yes">
+
+<a name=""></a><dt><b><tt>alias</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>alias</tt></b> <i>name</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>alias</tt></b> <i>name wordlist</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The first form prints all aliases.
+The second form prints the alias for <i>name</i>.
+The final form assigns the specified <i>wordlist</i> as the alias
+of <i>name</i>; <i>wordlist</i> is command and file name
+substituted.
+<i>name</i> cannot be <tt>alias</tt> or <tt>unalias</tt>.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/alias.1.asp"><b><tt>alias</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>alloc</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Shows the amount of dynamic memory acquired, broken down into used and
+free memory.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>bg</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>break</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Causes execution to resume after the <b><tt>end</tt></b> of the nearest
+enclosing <b><tt>foreach</tt></b> or <b><tt>while</tt></b>.
+The remaining commands on the current line are executed.
+Multi-level breaks are thus possible by writing them all on one line.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/break.1.asp"><b><tt>break</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>breaksw</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Causes a break from a <b><tt>switch</tt></b>, resuming after the
+<b><tt>endsw</tt></b>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>case</tt></b> <i>label</i><b><tt>:</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+A label in a <b><tt>switch</tt></b> statement as discussed later.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>cd</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>cd</tt></b> <i>name</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>chdir</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>chdir</tt></b> <i>name</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Changes the shell's working directory to directory <i>name</i>.
+If no argument is given then change to the home directory of the user.
+If <i>name</i> is not found as a subdirectory of the current directory
+(and does not begin with <i>x</i><tt>:/</tt>, <tt>//</tt>,
+<tt>./</tt>, or <tt>../</tt>), each component of the variable
+<tt>cdpath</tt> is checked to see if it has a subdirectory
+<i>name</i>.
+Finally, if all else fails but <i>name</i> is a shell variable
+whose value begins with <tt>/</tt>, then this is tried to see if it is
+a directory.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/cd.1.asp"><b><tt>cd</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>continue</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Continues execution of the nearest enclosing <b><tt>while</tt></b>
+or <b><tt>foreach</tt></b>.
+The rest of the commands on the current line are executed.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/cd.1.asp"><b><tt>cd</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>default :</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Labels the default case in a <b><tt>switch</tt></b> statement.
+The default should come after all <b><tt>case</tt></b> labels.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>dirs</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Prints the directory stack; the top of the stack is at the left,
+the first directory in the stack being the current directory.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+MKS Toolkit <a href="http://www.mkssoftware.com/docs/man1/dirs.1.asp"><b><tt>dirs</tt></b></a> command.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>echo</tt></b> <i>wordlist</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>echo</tt></b> <b><tt><nobr>-n</nobr></tt></b> <i>wordlist</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The specified words are written to the C Shell's standard output, separated
+by spaces, and terminated with a newline unless the <b><tt><nobr>-n</nobr></tt></b> option
+is specified.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/echo.1.asp"><b><tt>echo</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>else</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>end</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>endif</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>endsw</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+See the description of the <b><tt>foreach</tt></b>, <b><tt>if</tt></b>,
+<b><tt>switch</tt></b>, and <b><tt>while</tt></b> statements later in
+this reference page.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>eval</tt></b> <i>arg ...</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The arguments are read as input to the C Shell and the resulting command(s)
+are executed in the context of the current shell.
+This is usually used to execute commands generated as the result of command
+or variable substitution, since parsing occurs before these substitutions.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/eval.1.asp"><b><tt>eval</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>exec</tt></b> <i>command</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The specified <i>command</i> is executed in place of the current shell.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/exec.1.asp"><b><tt>exec</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>exit</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>exit</tt></b><tt>(</tt><i>expr</i><tt>)</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The shell exits either with the value of the <tt>status</tt> variable
+(first form) or with the value of the specified <i>expr</i>
+(second form).
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/exit.1.asp"><b><tt>exit</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>fg</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>foreach</tt></b> <i>name</i> <tt>(</tt><i>wordlist</i><tt>)</tt>&nbsp;</dt>
+<a name=""></a><dt>...&nbsp;</dt>
+<a name=""></a><dt><b><tt>end</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The variable <i>name</i> is successively set to each member of
+<i>wordlist</i> and the sequence of commands between this command and
+the matching <b><tt>end</tt></b> command are executed.
+(Both <b><tt>foreach</tt></b> and <b><tt>end</tt></b> must appear alone
+on separate lines.)
+The built-in C Shell command <b><tt>continue</tt></b> may be used to
+continue the loop prematurely and the built-in C Shell command 
+<b><tt>break</tt></b> may be used to terminate it prematurely.
+When this command is read from the terminal, the loop is read once
+prompting with <tt>?</tt> before any statements in the loop are executed.
+If you make a mistake typing in a loop at the terminal you can rub it out.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>glob</tt></b> <i>wordlist</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is like the <b><tt>echo</tt></b> command but no <tt>\</tt> escapes
+are recognized and words are delimited by null characters in the output.
+This is useful for programs that want to use the shell to file name expand
+a list of words.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>goto</tt></b> <i>word</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The specified <i>word</i> is file name and command expanded to yield a
+string of the form <tt>label</tt>.
+The shell rewinds its input as much as possible and searches for a line of
+the form <tt>label:</tt> possibly preceded by blanks or tabs.
+Execution continues after the specified line.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>hashstat</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Prints a statistics line showing how effective the internal hash
+table has been at locating commands (and avoiding <b><tt>exec</tt></b>s).
+An <b><tt>exec</tt></b> is attempted for each component of the path
+where the hash function indicates a possible hit, and in each component
+that does not begin with <i>x</i><tt>:/</tt> or <tt>//</tt>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>history</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>history</tt></b> <i>n</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>history</tt></b> <b><tt><nobr>-r</nobr></tt></b> <i>n</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>history</tt></b> <b><tt><nobr>-h</nobr></tt></b> <i>n</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Displays the history event list; if <i>n</i> is given only the
+<i>n</i> most recent events are printed.
+The <b><tt><nobr>-r</nobr></tt></b> option reverses the order of printout to be most
+recent first instead of oldest first.
+The <b><tt><nobr>-h</nobr></tt></b> option causes the history list to be printed without
+leading numbers.
+This format produces files suitable for sourcing using the <b><tt><nobr>-h</nobr></tt></b>
+option to the <b><tt>source</tt></b> command.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/history.1.asp"><b><tt>history</tt></b></a> alias for <a href="http://www.mkssoftware.com/docs/man1/fc.1.asp"><b><tt>fc</tt></b></a> built into the 
+MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>if</tt></b> <tt>(</tt><i>expr</i><tt>)</tt> <i>command</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+If the specified expression evaluates true, then the single 
+<i>command</i> with arguments is executed.
+Variable substitution on <i>command</i> happens early, at the same
+time it does for the rest of the <b><tt>if</tt></b> command.
+<i>command</i> must be a simple command, not a pipeline, a
+command list, or a parenthesized command list.
+Input/output redirection occurs even if <i>expr</i> is false, that is,
+when <i>command</i> is not executed (this is a bug).
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<b><tt>if</tt></b> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>if</tt></b> <tt>(</tt><i>expr</i><tt>)</tt> <b><tt>then</tt></b>&nbsp;</dt>
+<a name=""></a><dt>...&nbsp;</dt>
+<a name=""></a><dt><b><tt>else if</tt></b><tt>(</tt><i>expr2</i><tt>)</tt> <b><tt>then</tt></b>&nbsp;</dt>
+<a name=""></a><dt>...&nbsp;</dt>
+<a name=""></a><dt><b><tt>else</tt></b>&nbsp;</dt>
+<a name=""></a><dt>...&nbsp;</dt>
+<a name=""></a><dt><b><tt>endif</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+If the specified <i>expr</i> is true then the commands up to the first
+<b><tt>else</tt></b> are executed; otherwise if <i>expr2</i> is
+true, the commands up to the second <b><tt>else</tt></b> are executed,
+and so on.
+Any number of <b><tt>else</tt></b>-<b><tt>if</tt></b> pairs are possible;
+only one <b><tt>endif</tt></b> is needed.
+The <b><tt>else</tt></b> part is likewise optional.
+(The words <b><tt>else</tt></b> and <b><tt>endif</tt></b>
+must appear at the beginning of input lines;
+the <b><tt>if</tt></b> must appear alone on its input line or after an
+<b><tt>else</tt></b>.)
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<b><tt>if</tt></b> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>jobs</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>jobs</tt></b> <b><tt><nobr>-l</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Lists the active jobs; the <b><tt><nobr>-l</nobr></tt></b> option lists process IDs in
+addition to the normal information.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/jobs.1.asp"><b><tt>jobs</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>kill</tt></b> <tt>%</tt><i>job</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>kill</tt></b> <i>pid</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>kill</tt></b> <b><tt><nobr>-l</nobr></tt></b> <i>sig pid</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>kill</tt></b> <b><tt><nobr>-l</nobr></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Sends either the <tt>TERM</tt> (terminate) signal or the specified
+signal to the specified jobs or processes.
+Signals are either given by number or by names .
+The signal names are listed by <b><tt>kill</tt></b> <b><tt><nobr>-l</nobr></tt></b>.
+There is no default, just saying <b><tt>kill</tt></b> does not
+send a signal to the current job.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/kill.1.asp"><b><tt>kill</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>limit</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>login</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>logout</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Terminates a login shell.
+This is especially useful if <tt>ignoreeof</tt> or <tt>filec</tt> is set.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>nice</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>nohup</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>notify</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>notify%</tt></b> <tt>%</tt><i>job ...</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is accepted by this version of <b><tt>csh</tt></b>, but effectively
+does nothing.
+It is included for compatibility with other versions of <b><tt>csh</tt></b>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>onintr</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>onintr</tt></b> <b><tt><nobr>-</nobr></tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>onintr</tt></b> <i>label</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Controls the action of the C Shell on interrupts.
+The first form restores the default action of the shell on interrupts
+that are to terminate shell scripts or to return to the terminal command
+input level.
+The second form <b><tt>onintr</tt></b> <b><tt><nobr>-</nobr></tt></b> causes all
+interrupts to be ignored.
+The final form causes the C Shell to execute a <b><tt>goto</tt></b>
+<i>label</i> when an interrupt is received or a child process
+terminates because it was interrupted.
+</p>
+<p>
+In any case, if the shell is running detached and interrupts are
+being ignored, all forms of <b><tt>onintr</tt></b> have no meaning and
+interrupts continue to be ignored by the shell and all invoked commands.
+Finally, <b><tt>onintr</tt></b> statements are ignored in the system startup
+files where interrupts are disabled (<tt>$ROOTDIR/etc/cshrc.csh</tt> and
+<tt>$ROOTDIR/etc/login.csh</tt>).
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>popd</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>popd</tt></b> <tt>+</tt><i>n</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Pops the directory stack, returning to the new top directory.
+With an argument <b><tt>+</tt></b><i>n</i>, it discards the
+<i>n</i>th entry in the stack.
+The members of the directory stack are numbered from the top starting at 0.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+MKS Toolkit <a href="http://www.mkssoftware.com/docs/man1/popd.1.asp"><b><tt>popd</tt></b></a> command.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>pushd</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>pushd</tt></b> <i>name</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>pushd</tt></b> <tt>+</tt><i>n</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+With no arguments, <b><tt>pushd</tt></b> exchanges the top two elements
+of the directory stack.
+Given a <i>name</i> argument, <b><tt>pushd</tt></b> changes to the
+new directory (in the same way as <b><tt>cd</tt></b>) and pushes the old
+current working directory onto the directory stack.
+With a numeric argument, <a href="http://www.mkssoftware.com/docs/man1/pushd.1.asp"><b><tt>pushd</tt></b></a> rotates the
+<i>n</i>th argument of the directory stack around to be the top
+element and changes to it.
+The members of the directory stack are numbered from the top starting at 0.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+MKS Toolkit <a href="http://www.mkssoftware.com/docs/man1/pushd.1.asp"><b><tt>pushd</tt></b></a> command.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>rehash</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Causes the internal hash table of the contents of the directories in the 
+<tt>path</tt> variable to be recomputed.
+This is needed if new commands are added to directories in the <tt>path</tt>
+while you are using <b><tt>csh</tt></b>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>repeat</tt></b> <i>count command</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The specified <i>command</i>, which is subject to the same
+restrictions as the <i>command</i> in the one line 
+<b><tt>if</tt></b> statement earlier, is executed <i>count</i> times.
+Input and output redirections occur exactly once, even if
+<i>count</i> is 0.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>set</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>set</tt></b> <i>name</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>set</tt></b> <i>name</i><tt>=</tt><i>word</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>set</tt></b> <i>name</i><tt>[</tt><i>index</i><tt>]=</tt><i>word</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>set</tt></b> <i>name</i><tt>=(</tt><i>wordlist</i><tt>)</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The first form of the command shows the value of all shell variables.
+Variables that have other than a single word as their value print as a
+parenthesized word list.
+The second form sets <i>name</i> to the null string.
+The third form sets <i>name</i> to the single <i>word</i>.
+The fourth form sets the <i>index</i>th component of 
+<i>name</i> to <i>word</i>; this component must already exist.
+The final form sets <i>name</i> to the list of words in 
+<i>wordlist</i>.
+The value is always command and file name expanded.
+</p>
+<p>
+These arguments may be repeated to set multiple values in a single 
+<b><tt>set</tt></b> command.
+Note however, that variable expansion happens for all arguments before any
+setting occurs.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/set.1.asp"><b><tt>set</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>setenv</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>setenv</tt></b> <i>name</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>setenv</tt></b> <i>name value</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The first form lists all the current environment variables.
+The second form sets the value of the environment variable <i>name</i>
+to an empty string.
+The last form sets the value of the environment variable <i>name</i>
+to be <i>value</i>, a single string.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>shift</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>shift</tt></b> <i>variable</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The members of <tt>argv</tt> are shifted to the left, discarding
+<tt>argv[1]</tt>.
+It is an error for <tt>argv</tt> not to be set or to have less than one
+word as value.
+The second form performs the same function on the specified variable.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the
+<a href="http://www.mkssoftware.com/docs/man1/shift.1.asp"><b><tt>shift</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>source</tt></b> <i>name</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>source</tt></b> <b><tt><nobr>-h</nobr></tt></b> <i>name</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The C Shell reads commands from <i>name</i>.
+<b><tt>source</tt></b> commands may be nested; if they are nested too deeply
+the shell may run out of file descriptors.
+An error in a <b><tt>source</tt></b> command at any level terminates all
+nested <b><tt>source</tt></b> commands.
+Normally input during <b><tt>source</tt></b> commands is not placed on
+the history list; the <b><tt><nobr>-h</nobr></tt></b> option causes the commands to
+be placed on the history list without being executed.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>stop</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>stop</tt></b> <tt>%</tt><i>job ...</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>suspend</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Causes the shell to stop in its tracks.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>switch</tt></b> <tt>(</tt><i>string</i><tt>)</tt>&nbsp;</dt>
+<a name=""></a><dt><b><tt>case</tt></b> <i>str1</i>&nbsp;</dt>
+<a name=""></a><dt>...&nbsp;</dt>
+<a name=""></a><dt><b><tt>breaksw</tt></b>&nbsp;</dt>
+<a name=""></a><dt>...&nbsp;</dt>
+<a name=""></a><dt><b><tt>breaksw</tt></b>&nbsp;</dt>
+<a name=""></a><dt>...&nbsp;</dt>
+<a name=""></a><dt><b><tt>endsw</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Each case label is successively matched against the specified
+<i>string</i> after <i>string</i> is command and file
+name expanded.
+The file metacharacters <tt>*</tt>, <tt>?</tt>, and <tt>[...]</tt>
+may be used in the case labels, which are variable expanded.
+If none of the labels match before the `default' label is found, then
+the execution begins after the default label.
+Each case label and the default label must appear at the beginning of a line.
+The command <b><tt>breaksw</tt></b> causes execution to continue after the
+<b><tt>endsw</tt></b> .
+Otherwise control may fall through case labels and the default label as in C.
+If no label matches and there is no default, execution continues after
+the <b><tt>endsw</tt></b>.
+</p>
+<p>
+<b><tt>case</tt></b> is an internal C Shell command and should not be
+confused with the <b><tt>case</tt></b> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>time</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>time</tt></b> <i>command</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+With no argument, a summary of time used by this shell and its children
+is printed.
+If arguments are given the specified simple <i>command</i> is timed and
+a time summary as described under the <tt>time</tt>
+variable is printed. If necessary, an extra shell is created to print the time
+statistic when the command completes.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the 
+<a href="http://www.mkssoftware.com/docs/man1/time.1.asp"><b><tt>time</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>umask</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>umask</tt></b> <i>value</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The file creation mask is displayed (first form) or set to the specified
+<i>value</i> (second form).
+The mask is given in octal.
+Common values for the mask are 002 giving all access to the group and read
+and execute access to others or 022 giving all access except write access for
+users in the group or others.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the 
+<a href="http://www.mkssoftware.com/docs/man1/umask.1.asp"><b><tt>umask</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>unalias</tt></b> <i>pattern</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+All aliases whose names match the specified pattern are discarded.
+Thus all aliases are removed by <b><tt>unalias *</tt></b>.
+It is not an error for nothing to be <b><tt>unalias</tt></b>ed.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the 
+<a href="http://www.mkssoftware.com/docs/man1/unalias.1.asp"><b><tt>unalias</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>unhash</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Disables the use of the internal hash table to speed location of
+executed programs.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>unlimit</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>unset</tt></b> <i>pattern</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+All variables whose names match the specified pattern are removed.
+Thus all variables are removed by <b><tt>unset *</tt></b>;
+this has noticeably distasteful side-effects.
+It is not an error for nothing to be <b><tt>unset</tt></b>.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the 
+<a href="http://www.mkssoftware.com/docs/man1/unset.1.asp"><b><tt>unset</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>unsetenv</tt></b> <i>pattern</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Removes all variables whose name match the specified pattern from the
+environment.
+See also the <b><tt>setenv</tt></b> command earlier in this reference page.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>wait</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Waits for all background jobs.
+If the shell is interactive, then an interrupt can disrupt the wait.
+After the interrupt, the shell prints names and job numbers of all jobs
+known to be outstanding.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the 
+<a href="http://www.mkssoftware.com/docs/man1/wait.1.asp"><b><tt>wait</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>which</tt></b> <i>command</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Displays the resolved <i>command</i> that is executed by the shell.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the 
+<a href="http://www.mkssoftware.com/docs/man1/which.1.asp"><b><tt>which</tt></b></a> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>while</tt></b> <tt>(</tt><i>expr</i><tt>)</tt>&nbsp;</dt>
+<a name=""></a><dt>...&nbsp;</dt>
+<a name=""></a><dt><b><tt>end</tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+While the specified expression evaluates non-zero, the commands between
+the <b><tt>while</tt></b> and the matching <b><tt>end</tt></b> are evaluated.
+<b><tt>break</tt></b> and <b><tt>continue</tt></b> may be used to terminate
+or continue the loop prematurely.
+(The <b><tt>while</tt></b> and <b><tt>end</tt></b> must appear alone on
+their input lines.)
+Prompting occurs here the first time through the loop as for the
+<b><tt>foreach</tt></b> statement if the input is a terminal.
+</p>
+<p>
+This is an internal C Shell command and should not be confused with the 
+<b><tt>while</tt></b> command built into the MKS KornShell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>%</tt></b><i>job</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>%</tt></b><i>job</i> <tt>&amp;</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is not supported.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt>@</tt></b>&nbsp;</dt>
+<a name=""></a><dt><b><tt>@</tt></b> <i>name</i><tt>=</tt><i>expr</i>&nbsp;</dt>
+<a name=""></a><dt><b><tt>@</tt></b> <i>name</i><tt>[</tt><i>index</i><tt>]=</tt><i>expr</i>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The first form prints the values of all the shell variables.
+The second form sets the specified <i>name</i> to the value of
+<i>expr</i>.
+If the expression contains <tt>&lt;</tt>, <tt>&gt;</tt>, 
+<tt>&amp;</tt>, or <tt>|</tt>, then at least this part of the
+expression must be placed within <tt>( )</tt>.
+The third form assigns the value of <i>expr</i> to the
+<i>index</i>th argument of <i>name</i>.
+Both <i>name</i> and its <i>index</i>th component must
+already exist.
+</p>
+<p>
+The operators <tt>*=</tt>, <tt>+=</tt>, and so forth are available
+as in C.
+The space separating the name from the assignment operator is optional.
+Spaces are, however, mandatory in separating components of
+<i>expr</i> that would otherwise be single words.
+</p>
+<p>
+Special postfix <tt>++</tt> and <tt>--</tt> operators increment
+and decrement <i>name</i> respectively. For example
+</p>
+<blockquote><pre>@  i++
+</pre></blockquote>
+<p>
+increments the variable <tt>i</tt>.
+</p>
+</dd>
+
+</dl>
+<p></p>
+
+<h3><a name="Pre-defined_Variables">Pre-defined Variables</a></h3>
+
+<p class="firstline">
+The following variables have special meaning to the C Shell.
+Of these, <tt>argv</tt>, <tt>csh_version</tt>, <tt>cwd</tt>,
+<tt>home</tt>, <tt>path</tt>, <tt>prompt</tt>, <tt>ROOTDIR</tt>,
+<tt>shell</tt>, <tt>status</tt>, <tt>COMSPEC</tt>, and <tt>TMPDIR</tt>
+are always set by the shell.
+Except for <tt>cwd</tt> and <tt>status</tt>, this setting occurs only at
+initialization; these variables are then not modified unless done
+explicitly by the user.
+</p>
+<p>
+The shell copies version information into the variable <tt>csh_version</tt>.
+</p>
+<p>
+To set the variable <tt>TMPDIR</tt>, the C Shell works its way through
+the following environment variables in the order listed until it finds
+one that is set. It copies that environment variable to <tt>TMPDIR</tt>.
+</p>
+<blockquote><pre><b><tt><i>TMPDIR</i></tt></b>
+<b><tt><i>TEMP</i></tt></b>
+<b><tt><i>TMP</i></tt></b>
+<b><tt><i>ROOTDIR</i></tt></b>
+</pre></blockquote>
+<p>
+The C Shell copies the environment variable <b><tt><i>CSHPATHEXT</i></tt></b>
+into the variable <tt>CSHPATHEXT</tt>, <b><tt><i>PATHEXT</i></tt></b> into the
+variable <tt>PATHEXT</tt>, 
+<b><tt><i>HASHBANG</i></tt></b> into <tt>HASHBANG</tt>,
+<b><tt><i>DUALCASE</i></tt></b> into <tt>DUALCASE</tt>,
+<b><tt><i>ROOTDIR</i></tt></b> into <tt>ROOTDIR</tt>,
+<b><tt><i>COMSPEC</i></tt></b> into <tt>COMSPEC</tt>, 
+<b><tt><i>TERM</i></tt></b> into <tt>term</tt>, and 
+<b><tt><i>HOME</i></tt></b> into <tt>home</tt>.
+The environment variable <b><tt><i>PATH</i></tt></b> is likewise handled; it is not
+necessary to worry about its setting other than in the file
+<tt>$HOME/cshrc.csh</tt> as <b><tt>csh</tt></b> processes import the
+definition of <tt>path</tt> from the environment, and re-export it if you
+then change it.
+</p>
+<p class="firstline">
+</p><dl compact="yes">
+
+<a name=""></a><dt><tt>argv</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is set to the arguments to the shell.
+It is from this variable that positional parameters are substituted, that is,
+<tt>$1</tt> is replaced by <tt>$argv[1]</tt>, and so forth.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>cdpath</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Gives a list of alternative directories searched to find subdirectories
+in <b><tt>chdir</tt></b> commands.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>cwd</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The full path name of the current directory.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>DUALCASE</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+When set, file name comparisons (for example, in globbing, or file name
+expansion, and file name completion) are case-sensitive.
+When not set, case is ignored in file name comparisons.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>echo</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is set when the <b><tt><nobr>-x</nobr></tt></b> command line option is given.
+It causes each command and its arguments to be echoed just before it is
+executed.
+For non-built-in commands all expansions occur before echoing.
+Built-in commands are echoed before command and file name substitution,
+since these substitutions are then done selectively.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>filec</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Enables file name completion.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>HASHBANG</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+enables or disables the <tt>#!</tt> feature of the C Shell.
+If this variable is set to a non-zero value, the feature is enabled;
+otherwise, it is disabled.
+When this feature is enabled and the first line of a C Shell script file
+is of the form:
+</p>
+<blockquote><pre>#![<i>command</i>] [<i>arguments</i>]
+</pre></blockquote>
+<p>
+<i>command</i> is executed with a command line consisting of
+<i>arguments</i> followed by the path name of the script file.
+If <i>command</i> has a UNIX-style path name (starts with a forward
+slash and has no file name extension) and cannot be found, then, for
+portability reasons, the shell attempts a path search on the basename of
+<i>command</i>.
+For example, suppose the file <tt>script</tt> has the first line
+</p>
+<blockquote><pre>#!/usr/bin/perl
+</pre></blockquote>
+<p>
+Typing <tt>script</tt> on the C Shell command line executes the script
+using the <a href="http://www.mkssoftware.com/docs/man1/perl.1.asp"><b><tt>perl</tt></b></a> command.
+</p>
+<p class="firstline">
+</p><dl compact="no">
+<dt><b>Note:</b></dt>
+<dd>
+<p class="firstline">
+When the <b><tt><i>TK_HASHBANG_DO_NOT_SEARCH_PATH</i></tt></b> environment
+variable is set to a non-zero value and <i>command</i> cannot be
+found, the shell does not attempt a path search on the basename of
+<i>command</i>.
+</p>
+</dd>
+</dl>
+<p></p>
+</dd>
+
+
+<a name=""></a><dt><tt>histchars</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Can be given a string value to change the characters used in history
+substitution. The first character of its value is used as the
+history substitution character, replacing the default character <tt>!</tt>.
+The second character of its value replaces the character <tt>^</tt> in
+quick substitutions.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>histfile</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Can be set to the path name of the file where the history is going to be 
+saved/restored.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>history</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Can be given a numeric value to control the size of the history list.
+Any command that has been referenced in this many events is not discarded.
+Assigning too large of a value to <tt>history</tt> can cause the C Shell
+to run out of memory.
+The last executed command is always saved on the history list.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>home</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is the home directory of the invoker, initialized from the environment.
+The file name expansion of <tt>~</tt> refers to this variable.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>ignoreeof</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+If set, the C Shell ignores end-of-file from input devices that are terminals.
+This prevents shells from accidentally being killed by control-Z's.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>mail</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is the files where the C Shell checks for mail.
+This checking is done after each command completion that results in a prompt,
+if a specified interval has elapsed.
+The shell says <tt>You have new mail.</tt>
+if the file exists with an access time not greater than its modify time.
+</p>
+<p>
+If the first word of the value of <tt>mail</tt> is numeric, it specifies a
+different mail checking interval, in seconds, than the default of 10 minutes.
+</p>
+<p>
+If multiple mail files are specified, then the C Shell says 
+<tt>New mail in </tt><i>name</i><tt>.</tt>
+when there is mail in the <i>name</i> file.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>noclobber</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+As described in the section on <a href="#Input/Output"><i>Input/Output</i></a>, restrictions are
+placed on output redirection to make sure that files are not accidentally
+destroyed, and that <tt>&gt;&gt;</tt> redirections refer to existing files.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>noglob</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+If set, file name expansion is inhibited.
+This inhibition is most useful in shell scripts that are not dealing with
+file names, or after a list of file names has been obtained and further
+expansions are not desirable.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>nonomatch</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+If set, it is not an error for a file name expansion to not match any
+existing files; instead the primitive pattern is returned.
+It is still an error for the primitive pattern to be malformed, that is,
+<b><tt>echo [</tt></b> still gives an error.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>notify</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is accepted by this version of <b><tt>csh</tt></b>, but effectively does
+nothing.
+It is included for compatibility with other versions of <b><tt>csh</tt></b>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>path</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Each word of the <tt>path</tt> variable specifies a directory where commands
+are to be sought for execution.
+A null word specifies the current directory.
+If there is no <tt>path</tt> variable then only full path names execute.
+The default search path is usually:
+</p>
+<blockquote><pre>/mksnt;c:/winnt;c:/winnt/system32    
+</pre></blockquote>
+<p>
+A C Shell that is given neither the <b><tt><nobr>-c</nobr></tt></b> nor the
+<b><tt><nobr>-t</nobr></tt></b> option normally hashes the contents of the directories
+in the <tt>path</tt> variable after reading <tt>$HOME/cshrc.csh</tt>,
+and each time the <tt>path</tt> variable is reset.
+If new commands are added to these directories while the shell is active,
+it may be necessary to do a <b><tt>rehash</tt></b> so that these new commands
+can be found.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>PATHEXT</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+contains a list of file extensions (separated by semicolons) for executable
+commands.
+Matching files with these extensions are searched for when the exact command
+name is not found.
+As the shell searches each directory in the search path, it appends each
+of the extensions in the list, in turn, to the command name and if it matches a
+file name in that directory, that file is executed as though it had that
+extension.
+</p>
+<p>
+By default, <tt>PATHEXT</tt>, has the value of Windows NT/2000/XP/2003/Vista's
+<b><tt><i>PATHEXT</i></tt></b> variable with
+<tt>.com;.exe;.bat;.sh;.ksh;.csh;.sed;.awk;.pl</tt> appended
+(omitting any extensions already represented in <b><tt><i>PATHEXT</i></tt></b>).
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>prompt</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is the string that is printed before each command is read from
+an interactive terminal input.
+If a <tt>!</tt> appears in the string it is replaced by the current event
+number unless a preceding <tt>\</tt> is given.
+Default is <tt>%</tt>, or <tt>#</tt> for the super-user.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>savehist</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is given a numeric value to control the number of entries of the history list
+that are saved in <tt>~/history.csh</tt> when the user logs out.
+Any command that has been referenced in this many events is saved.
+During start up the shell sources <tt>~/history.csh</tt> into the history
+list enabling history to be saved across logins.
+Large values of <tt>savehist</tt> may slow down the shell during start up.
+If <tt>savehist</tt> is set to an empty string, the shell uses the value of
+<tt>history</tt>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>shell</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is the file where the shell resides.
+Initialized to the (system-dependent) home of the shell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>status</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+The status returned by the last command.
+Built-in commands that fail return exit status <tt>1</tt>;
+all other built-in commands set status to <tt>0</tt>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>time</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Controls automatic timing of commands.
+If set, any command taking more than this many CPU seconds
+causes a line giving user time to be printed when it terminates.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><i>TK_CMDSUB_FORMAT</i></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Contains the format to be used for the output from command substitution
+in MKS C Shell (the <tt>`<i>command_line</i>`</tt> structure).
+The value must be one of those listed in the
+<a href="http://www.mkssoftware.com/docs/man5/unicode.5.asp#File_Character_Formats"><i>File Character Formats</i></a> section of the
+<a href="http://www.mkssoftware.com/docs/man5/unicode.5.asp"><b><tt>unicode</tt></b></a> reference page.
+</p>
+<p>
+When <b><tt><i>TK_CMDSUB_FORMAT</i></tt></b> is not set, the value of the
+<b><tt><i>TK_STDIO_DEFAULT_INPUT_FORMAT</i></tt></b> environment variable is used
+as the default format.
+</p>
+<p>
+When <b><tt><i>TK_CMDSUB_FORMAT</i></tt></b> and
+<b><tt><i>TK_STDIO_DEFAULT_INPUT_FORMAT</i></tt></b> are both unset,
+either <tt>ASCII_OEM</tt> or <tt>ASCII_ANSI</tt> is used
+as the default format, as dictated by the current code page.
+This provides compatibility with older versions of MKS Toolkit.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><i>TK_HASHBANG_DO_NOT_SEARCH_PATH</i></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+When set to a non-zero value, and the <i>command</i> in:
+</p>
+<blockquote><pre>#![<i>command</i>] [<i>arguments</i>]
+</pre></blockquote>
+<p>
+cannot be found, the shell does not attempt a path search on the basename of
+<i>command</i>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><i>TK_HEREDOC_FORMAT</i></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Contains the format to be used for here documents in MKS C Shell.
+The value must be one of those listed in the
+<a href="#File_Character_Formats"><i>File Character Formats</i></a> section above.
+</p>
+<p>
+When <b><tt><i>TK_HEREDOC_FORMAT</i></tt></b> and
+<b><tt><i>TK_STDIO_DEFAULT_OUTPUT_FORMAT</i></tt></b> are both unset,
+here documents are assumed to use <tt>ASCII_OEM</tt> characters.
+This provides compatibility with older versions of MKS Toolkit.
+</p>
+<p>
+When <b><tt><i>TK_STDIO_DEFAULT_OUTPUT_FORMAT</i></tt></b> is set to
+a Unicode/UTF-8 format and you are feeding a here document to
+to a non-MKS Toolkit utility that won't understand its format, you should set
+<b><tt><i>TK_HEREDOC_FORMAT</i></tt></b> to <tt>ASCII_OEM</tt> and export it.
+</p>
+<p>
+When <b><tt><i>TK_HEREDOC_FORMAT</i></tt></b> is unset or
+<b><tt><i>TK_STDIO_DEFAULT_OUTPUT_FORMAT</i></tt></b> is set to an ASCII format
+and your here document contains non-ASCII (OEM) characters, you should set
+<b><tt><i>TK_HEREDOC_FORMAT</i></tt></b> to <tt>UTF-8</tt> and export it.
+</p>
+<p>
+This variable takes precedence over
+<b><tt><i>TK_STDIO_DEFAULT_OUTPUT_FORMAT</i></tt></b>.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><i>TK_PATH_CONVERT</i></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Determines whether or environment variables that are considered to
+contain path names are displayed in Windows or UNIX format. When this
+variable is set to <tt>UNIX</tt> (this value is case-insensitive),
+such an enivronment variable is displayed in UNIX format; otherwise, it
+is displayed in Windows format.
+See the
+<a href="http://www.mkssoftware.com/docs/man5/eucm.5.asp#Environment_Variables_and_Paths"><i>Environment Variables and Paths</i></a> section 
+of the <a href="http://www.mkssoftware.com/docs/man5/EUCM.5.asp"><b><tt>EUCM</tt></b></a> reference page for more information.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><i>TK_UNIX_FILESYSTEM</i></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+When this variable is set, the Enhanced UNIX Compatibility Mode is on and the virtual file system is in use.
+For more information, see the <a href="http://www.mkssoftware.com/docs/man5/EUCM.5.asp"><b><tt>EUCM</tt></b></a> reference page.
+</p>
+</dd>
+
+
+<a name=""></a><dt><b><tt><i>TK_USE_CTRLD_AS_CONSOLE_EOF</i></tt></b>&nbsp;</dt>
+<dd>
+<p class="firstline">
+When set, allows the use of 
+CTRL-D as the EOF (end-of-file)
+character for the MKS KornShell (including <a href="http://www.mkssoftware.com/docs/man1/sh.1.asp"><b><tt>sh</tt></b></a>,
+<a href="http://www.mkssoftware.com/docs/man1/sh.1.asp"><b><tt>bash</tt></b></a>, <a href="http://www.mkssoftware.com/docs/man1/sh.1.asp"><b><tt>ksh</tt></b></a> and <a href="http://www.mkssoftware.com/docs/man1/sh.1.asp"><b><tt>resh</tt></b></a>)
+and MKS C Shell as well as for any utility that can accept input
+from the console.
+</p>
+<p>
+In particular, it allows 
+CTRL-D to be used as the 
+EOF (end-of-file) character when completing file names in the C Shell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>verbose</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is set by the <b><tt><nobr>-v</nobr></tt></b> command line option and causes the words
+of each command to be printed after history substitution.
+</p>
+</dd>
+
+</dl>
+<p></p>
+
+<h3><a name="Non-built-in_Command_Execution">Non-built-in Command Execution</a></h3>
+
+<p class="firstline">
+When a command to be executed is found to not be a built-in command
+the C Shell attempts to execute the command.
+Each word in the variable <tt>path</tt> names a directory where the shell
+attempts to execute the command from.
+If it is given neither a <b><tt><nobr>-c</nobr></tt></b> option nor a <b><tt><nobr>-t</nobr></tt></b>
+option, the shell hashes the names in these directories into an internal
+table so that it only tries an <b><tt>exec</tt></b> in a directory if there
+is a possibility that the command resides there.
+This shortcut greatly speeds command location when many directories
+are present in the search path.
+If this mechanism has been turned off (via <b><tt>unhash</tt></b>),
+or if the shell was given a <b><tt><nobr>-c</nobr></tt></b> option or a
+<b><tt><nobr>-t</nobr></tt></b> option, and in any case, for each directory component
+of <tt>path</tt> that does not begin with <i>x</i><tt>:/</tt>
+or <tt>//</tt>, the shell concatenates with the given command name to
+form a path name of a file that it then attempts to execute.
+</p>
+<p>
+Parenthesized commands are always executed in a subshell.
+Thus
+</p>
+<blockquote><pre>(cd ; pwd) ; pwd
+</pre></blockquote>
+<p>
+prints the <tt>home</tt> directory; leaving you where you were (printing
+this after the home directory), while
+</p>
+<blockquote><pre>cd ; pwd
+</pre></blockquote>
+<p>
+leaves you in the <tt>home</tt> directory.
+Parenthesized commands are most often used to prevent <b><tt>chdir</tt></b>
+from affecting the current shell.
+</p>
+<p>
+If the file has execute permissions but is not an executable binary to the
+system, then it is assumed to be a file containing shell commands and a new
+shell is spawned to read it.
+</p>
+<p>
+If there is an <b><tt>alias</tt></b> for <b><tt>shell</tt></b>, the words of
+the alias are prepended to the argument list to form the 
+<b><tt>shell</tt></b> command.
+The first word of the alias should be the full path name of the shell
+(for example, <tt>$shell</tt>).
+Note that this is a special, late occurring, case of <b><tt>alias</tt></b>
+substitution, and only allows words to be prepended to the argument list
+without change.
+</p>
+
+<h3><a name="Signal_Handling">Signal Handling</a></h3>
+
+<p class="firstline">
+The shell ignores <tt>quit</tt> signals.
+Jobs running in the background are immune to signals generated from
+the keyboard, including hangups.
+Other signals have the values that the shell inherited from its parent.
+The shell's handling of interrupts and terminate signals
+in shell scripts can be controlled by <b><tt>onintr</tt></b>.
+Login shells catch the <tt>terminate</tt> signal; otherwise,
+this signal is passed on to children from the state in the shell's parent.
+Interrupts are not allowed when a login shell is reading the file
+<tt>logout.csh</tt>.
+</p>
+
+
+<hr class="divider">
+<h2><a name="AUTHOR">AUTHOR</a></h2>
+
+<p class="firstline">
+William Joy.
+Job control and directory stack features first implemented by J.E. Kulp of
+IIASA, Laxenburg, Austria, with different syntax than that used now.
+File name completion code written by Ken Greer, HP Labs.
+Eight-bit implementation Christos S. Zoulas, Cornell University.
+</p>
+
+<hr class="divider">
+<h2><a name="FILES">FILES</a></h2>
+
+<p class="firstline">
+</p><dl compact="yes">
+
+<a name=""></a><dt><tt>~/cshrc.csh</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is read at the beginning of execution by each shell.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>~/login.csh</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is read by a login shell, after <tt>cshrc.csh</tt> at login.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>~/logout.csh</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is read by a login shell, at logout.
+</p>
+</dd>
+
+
+<a name=""></a><dt><tt>$TMPDIR/heredoc_csh*</tt>&nbsp;</dt>
+<dd>
+<p class="firstline">
+Is a temporary file used for <tt>&lt;&lt;</tt>.
+</p>
+</dd>
+
+</dl>
+<p></p>
+
+<hr class="divider">
+<h2><a name="LIMITATIONS">LIMITATIONS</a></h2>
+
+<p class="firstline">
+<b><tt>csh</tt></b> has the following limits:
+</p>
+<ul type="disc">
+<p><a name=""></a></p><li>
+Words can be no longer than 1024 characters.
+</li>
+<p></p>
+<p><a name=""></a></p><li>
+The system limits argument lists to 10240 characters.
+</li>
+<p></p>
+<p><a name=""></a></p><li>
+The number of arguments to a command that involves file name expansion
+is limited to one-sixth the number of characters allowed in an argument list.
+Command substitutions may substitute no more characters than are
+allowed in an argument list.
+</li>
+<p></p>
+<p><a name=""></a></p><li>
+To detect looping, the shell restricts the number of
+<b><tt>alias</tt></b> substitutions on a single line to 20.
+</li>
+<p></p>
+</ul>
+
+<hr class="divider">
+<h2><a name="BUGS">BUGS</a></h2>
+
+<p class="firstline">
+When a command is restarted from a stop, the shell prints the directory it
+started in if this is different from the current directory; this can be
+misleading (that is, wrong) as the job may have changed directories
+internally.
+</p>
+<p>
+Alias substitution is most often used to clumsily simulate shell procedures;
+shell procedures should be provided instead of aliases.
+</p>
+<p>
+Commands within loops, prompted for by <tt>?</tt>, are not placed on the
+<tt>history</tt> list.
+Control structure should be parsed instead of being recognized as built-in
+commands. This would allow control commands to be placed anywhere,
+to be combined with <tt>|</tt>, and to be used with <tt>&amp;</tt> and
+<tt>;</tt> metasyntax.
+</p>
+<p>
+It should be possible to use the <tt>:</tt> modifiers on the output
+of command substitutions.
+</p>
+
+<hr class="divider">
+<h2><a name="AVAILABILITY">AVAILABILITY</a></h2>
+
+<p class="firstline">
+MKS Toolkit for Power Users<br>
+MKS Toolkit for System Administrators<br>
+MKS Toolkit for Developers<br>
+MKS Toolkit for Interoperability<br>
+MKS Toolkit for Professional Developers<br>
+MKS Toolkit for Enterprise Developers<br>
+MKS Toolkit for Enterprise Developers 64-Bit Edition<br>
+
+</p>
+
+<hr class="divider">
+<h2><a name="SEE_ALSO">SEE ALSO</a></h2>
+<p class="firstline">
+</p><dl compact="yes">
+<dt><b>Commands:</b></dt>
+<dd><a href="http://www.mkssoftware.com/docs/man1/sh.1.asp"><b><tt>sh</tt></b></a></dd>
+</dl>
+<p></p>
+<hr class="divider">
+<center><p class="build">
+MKS Toolkit 9.2 Documentation Build 16.
+</p></center><br style="page-break-after: always;"></div></body></html>

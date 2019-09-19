@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo " "
+echo "************ Problem 3.A"
+echo " "
+# code your solution to problem A of Part 3 below this line
+
+cp info.txt numbered.txt
+
+cat -n info.txt > numbered.txt
+
+echo "\n" >> numbered.txt
+
+cat numbered.txt

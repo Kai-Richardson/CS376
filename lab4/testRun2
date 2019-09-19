@@ -1,0 +1,39 @@
+#!/bin/bash
+
+echo " "
+echo "************ Problem 2.A"
+echo " "
+# code your solution to problem A of Part 2 below this line
+
+echo | sed -n '100,120p' csh.html
+
+echo " "
+echo "************ Problem 2.B"
+echo " "
+# code your solution to problem B of Part 2 below this line
+
+cp info.txt extra.txt
+echo "This is the end" >> extra.txt
+cat extra.txt
+
+echo " "
+echo "************ Problem 2.C"
+echo " "
+# code your solution to problem C of Part 2 below this line
+
+ls -C -c -lt -l | head -5
+
+echo " "
+echo "************ Problem 2.D"
+echo " "
+# code your solution to problem D of Part 2 below this line
+
+ls -Slr | head -6
+
+echo " "
+echo "************ Problem 2.E"
+echo " "
+# code your solution to problem E of Part 2 below this line
+
+wc -w list.txt > lineCount.txt
+cat < lineCount.txt

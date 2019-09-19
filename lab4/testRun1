@@ -1,0 +1,30 @@
+#!/bin/bash
+
+echo " "
+echo "************ Problem 1.A"
+echo " "
+# code your solution to problem A of Part 1 below this line
+
+echo $SHELL | lolcat
+
+echo " "
+echo "************ Problem 1.B"
+echo " "
+# code your solution to problem B of Part 1 below this line
+
+echo $PWD | lolcat
+
+echo " "
+echo "************ Problem 1.C"
+echo " "
+# code your solution to problem C of Part 1 below this line
+
+echo $USER | lolcat
+
+echo " "
+echo "************ Problem 1.D"
+echo " "
+# code your solution to problem D of Part 1 below this line
+
+echo $USER > users.txt
+cat users.txt | lolcat

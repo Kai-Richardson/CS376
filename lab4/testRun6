@@ -1,0 +1,24 @@
+#!/bin/bash
+
+echo " "
+echo "************ Problem 6.A"
+echo " "
+# code your solution to problem A of Part 6 below this line
+
+gcc -o printNums printNums.c
+
+
+echo " "
+echo "************ Problem 6.B"
+echo " "
+# code your solution to problem B of Part 6 below this line
+
+./printNums
+
+echo " "
+echo "************ Problem 6.C"
+echo " "
+# code your solution to problem C of Part 6 below this line
+./printNums > printNums.txt
+tac printNums.txt > reverse.txt
+cat reverse.txt
