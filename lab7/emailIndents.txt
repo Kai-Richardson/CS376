@@ -1,0 +1,19 @@
+    CS203 students,
+    Your graded HW8A is attached. For the most part, the class did well on this
+    assignment. Here are some common issues:
+    
+    Do not call setData within the loop(s). This will take a long time to process.
+    Call this method after all the pixels have been modified in the 2D Pixel array.
+    
+    Some programs were really long. I did not grade on compactness for this
+    assignment, but note that you can access the neighbor pixels using another
+    nested loop. See my solution on moodle for this version.
+    
+    Part B is due tomorrow at 11 am. Some students have asked what code to
+    include in the report appendix: Just put your code for the 7 filters you 
+    wrote for Part B in the appendix.
+    
+    Also, this is a reminder that we have the third midterm exam tomorrow in
+    class. See you then.
+    
+    Tammy
