@@ -38,7 +38,7 @@ void PrintMulTable(int **A,int rows,int columns)
     cout << "The multiplication table is:" << endl;
 
     //Print the multiplication table
-    for(int i=0; i<=rows; i++)
+    for(int i=0; i<rows; i++)
     {
         for(int j=0; j<columns; j++)
         {

@@ -18,7 +18,7 @@ int main(int argc, char **argv)
 
     //The while loop gets the square of the odd numbers from i = 1 to 100.
     //This should stop when i reaches 100.
-    while(i!=100){
+    while(i<=100){
       square(i);   //Call the square function
       i=i+2;       //Increment i by two
     }

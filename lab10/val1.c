@@ -1,13 +1,13 @@
 #include <stdio.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 
 int main(void)
 {
-    char *p; 
+    char *p = "t";
 
-    char c = *p; 
+    char c = *p;
 
-    printf("\n [%c]\n",c); 
+    printf("\n [%c]\n",c);
 
     return 0;
 }
